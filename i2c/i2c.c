@@ -1,0 +1,233 @@
+/*****************************************************
+This program was produced by the
+CodeWizardAVR V2.05.3 Standard
+Automatic Program Generator
+© Copyright 1998-2011 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.com
+
+Project : 
+Version : 
+Date    : 01.05.2017
+Author  : Nikita
+Company : 
+Comments: 
+
+
+Chip type               : ATmega328P
+Program type            : Application
+AVR Core Clock frequency: 16,000000 MHz
+Memory model            : Small
+External RAM size       : 0
+Data Stack size         : 512
+*****************************************************/
+
+#include <mega328p.h>
+#include <delay.h>
+
+// TWI functions
+#include <twi.h>
+
+// TWI Slave receive buffer
+#define TWI_RX_BUFFER_SIZE 4
+unsigned char twi_rx_buffer[TWI_RX_BUFFER_SIZE];
+
+// TWI Slave transmit buffer
+#define TWI_TX_BUFFER_SIZE 4
+unsigned char twi_tx_buffer[TWI_TX_BUFFER_SIZE];
+
+// TWI Slave receive handler
+// This handler is called everytime a byte
+// is received by the TWI slave
+bool twi_rx_handler(bool rx_complete)
+{
+if (twi_result==TWI_RES_OK)
+   {
+   // A data byte was received without error
+   // and it was stored at twi_rx_buffer[twi_rx_index]
+   // Place your code here to process the received byte
+   // Note: processing must be VERY FAST, otherwise
+   // it is better to process the received data when
+   // all communication with the master has finished
+    PORTD.4=twi_rx_buffer[0]; 
+    //delay_ms(100);
+   }
+else
+   {
+   // Receive error
+   // Place your code here to process the error
+
+   return false; // Stop further reception
+   }
+
+// The TWI master has finished transmitting data?
+if (rx_complete) return false; // Yes, no more bytes to receive
+
+// Signal to the TWI master that the TWI slave
+// is ready to accept more data, as long as
+// there is enough space in the receive buffer
+return (twi_rx_index<sizeof(twi_rx_buffer));
+}
+
+// TWI Slave transmission handler
+// This handler is called for the first time when the
+// transmission from the TWI slave to the master
+// is about to begin, returning the number of bytes
+// that need to be transmitted
+// The second time the handler is called when the
+// transmission has finished
+// In this case it must return 0
+unsigned char twi_tx_handler(bool tx_complete)
+{
+if (tx_complete==false)
+   {
+   // Transmission from slave to master is about to start
+   // Return the number of bytes to transmit
+   return sizeof(twi_tx_buffer);
+   }
+
+// Transmission from slave to master has finished
+// Place code here to eventually process data from
+// the twi_rx_buffer, if it wasn't yet processed
+// in the twi_rx_handler
+
+    
+
+// No more bytes to send in this transaction
+return 0;
+}
+
+// Declare your global variables here
+
+void main(void)
+{
+// Declare your local variables here
+
+// Crystal Oscillator division factor: 1
+#pragma optsize-
+CLKPR=0x80;
+CLKPR=0x00;
+#ifdef _OPTIMIZE_SIZE_
+#pragma optsize+
+#endif
+
+// Input/Output Ports initialization
+// Port B initialization
+// Func7=In Func6=In Func5=In Func4=In Func3=In Func2=In Func1=In Func0=In 
+// State7=T State6=T State5=T State4=T State3=T State2=T State1=T State0=T 
+PORTB=0x00;
+DDRB=0x00;
+
+// Port C initialization
+// Func6=In Func5=In Func4=In Func3=In Func2=In Func1=In Func0=In 
+// State6=T State5=T State4=T State3=T State2=T State1=T State0=T 
+PORTC=0x00;
+DDRC=0x00;
+
+// Port D initialization
+// Func7=In Func6=In Func5=In Func4=In Func3=In Func2=In Func1=In Func0=In 
+// State7=T State6=T State5=T State4=T State3=T State2=T State1=T State0=T 
+PORTD=0x00;
+DDRD=0x10;
+
+// Timer/Counter 0 initialization
+// Clock source: System Clock
+// Clock value: Timer 0 Stopped
+// Mode: Normal top=0xFF
+// OC0A output: Disconnected
+// OC0B output: Disconnected
+TCCR0A=0x00;
+TCCR0B=0x00;
+TCNT0=0x00;
+OCR0A=0x00;
+OCR0B=0x00;
+
+// Timer/Counter 1 initialization
+// Clock source: System Clock
+// Clock value: Timer1 Stopped
+// Mode: Normal top=0xFFFF
+// OC1A output: Discon.
+// OC1B output: Discon.
+// Noise Canceler: Off
+// Input Capture on Falling Edge
+// Timer1 Overflow Interrupt: Off
+// Input Capture Interrupt: Off
+// Compare A Match Interrupt: Off
+// Compare B Match Interrupt: Off
+TCCR1A=0x00;
+TCCR1B=0x00;
+TCNT1H=0x00;
+TCNT1L=0x00;
+ICR1H=0x00;
+ICR1L=0x00;
+OCR1AH=0x00;
+OCR1AL=0x00;
+OCR1BH=0x00;
+OCR1BL=0x00;
+
+// Timer/Counter 2 initialization
+// Clock source: System Clock
+// Clock value: Timer2 Stopped
+// Mode: Normal top=0xFF
+// OC2A output: Disconnected
+// OC2B output: Disconnected
+ASSR=0x00;
+TCCR2A=0x00;
+TCCR2B=0x00;
+TCNT2=0x00;
+OCR2A=0x00;
+OCR2B=0x00;
+
+// External Interrupt(s) initialization
+// INT0: Off
+// INT1: Off
+// Interrupt on any change on pins PCINT0-7: Off
+// Interrupt on any change on pins PCINT8-14: Off
+// Interrupt on any change on pins PCINT16-23: Off
+EICRA=0x00;
+EIMSK=0x00;
+PCICR=0x00;
+
+// Timer/Counter 0 Interrupt(s) initialization
+TIMSK0=0x00;
+
+// Timer/Counter 1 Interrupt(s) initialization
+TIMSK1=0x00;
+
+// Timer/Counter 2 Interrupt(s) initialization
+TIMSK2=0x00;
+
+// USART initialization
+// USART disabled
+UCSR0B=0x00;
+
+// Analog Comparator initialization
+// Analog Comparator: Off
+// Analog Comparator Input Capture by Timer/Counter 1: Off
+ACSR=0x80;
+ADCSRB=0x00;
+DIDR1=0x00;
+
+// ADC initialization
+// ADC disabled
+ADCSRA=0x00;
+
+// SPI initialization
+// SPI disabled
+SPCR=0x00;
+
+// TWI initialization
+// Mode: TWI Slave
+// Match Any Slave Address: Off
+// I2C Bus Slave Address: 0x00
+twi_slave_init(false,0x00,twi_rx_buffer,sizeof(twi_rx_buffer),twi_tx_buffer,twi_rx_handler,twi_tx_handler);
+
+// Global enable interrupts
+#asm("sei")
+
+while (1)
+      {
+      // Place your code here
+          //PORTD.4=~PORTD.4;
+           //delay_ms(100);
+      }
+}

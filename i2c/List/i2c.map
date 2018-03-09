@@ -1,0 +1,26 @@
+RAM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+twi_tx_index                                                      0x0300       1
+twi_rx_index                                                      0x0301       1
+twi_result                                                        0x0302       1
+twi_rx_buffer                                                     0x0303       4
+twi_tx_buffer                                                     0x0307       4
+slave_address                                                     0x030B       1
+twi_tx_buffer                                                     0x030C       2
+bytes_to_tx                                                       0x030E       1
+twi_rx_buffer                                                     0x030F       2
+bytes_to_rx                                                       0x0311       1
+twi_rx_buffer_size                                                0x0312       1
+twi_slave_rx_handler                                              0x0313       2
+twi_slave_tx_handler                                              0x0315       2
+
+EEPROM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                          Register  Size
+--------------------------------------------------------------------------------
+twi_flag                                                          GPIOR0.0  1bit
+twi_ready                                                         GPIOR0.1  1bit

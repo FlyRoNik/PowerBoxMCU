@@ -1,0 +1,46 @@
+RAM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+twi_tx_index                                                      0x0300       1
+twi_rx_index                                                      0x0301       1
+twi_result                                                        0x0302       1
+read_command                                                      0x0303       1
+current_command                                                   0x0304       1
+i                                                                 0x0305       1
+size_commands                                                     0x0306       1
+write_command                                                     0x0307       1
+color_R                                                           0x0308       1
+color_G                                                           0x0309       1
+color_B                                                           0x030A       1
+twi_rx_buffer                                                     0x030B      13
+twi_tx_buffer                                                     0x0318      21
+slave_address                                                     0x032D       1
+twi_tx_buffer                                                     0x032E       2
+bytes_to_tx                                                       0x0330       1
+twi_rx_buffer                                                     0x0331       2
+bytes_to_rx                                                       0x0333       1
+twi_rx_buffer_size                                                0x0334       1
+twi_slave_rx_handler                                              0x0335       2
+twi_slave_tx_handler                                              0x0337       2
+
+EEPROM Allocation
+Variable                                                          Address   Size
+--------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                          Register  Size
+--------------------------------------------------------------------------------
+b1                                                                GPIOR0.0  1bit
+status_phone                                                      GPIOR0.1  1bit
+status_lock                                                       GPIOR0.2  1bit
+status_LED                                                        GPIOR0.3  1bit
+Permit                                                            R4           1
+counter_digitizing                                                R3           1
+checksum                                                          R6           1
+current                                                           R7,R8        2
+voltage                                                           R9,R10       2
+avarage_current                                                   R11,R12      2
+avarage_voltage                                                   R13,R14      2
+status_power                                                      R5           1
+twi_flag                                                          GPIOR0.4  1bit
+twi_ready                                                         GPIOR0.5  1bit
